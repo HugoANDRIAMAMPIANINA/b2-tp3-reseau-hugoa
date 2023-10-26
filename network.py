@@ -23,7 +23,15 @@ def ping(ipaddr):
     return "DOWN !"
 
 def ip():
-    return net_if_addrs()["Wi-Fi"][1][1]
+    if platform.system() == "Windows":
+        return net_if_addrs()["Wi-Fi"][1][1]
+    elif platform.system() == "Linux":
+        wifi_network_adapter = ""
+        try:
+            return net_if_addrs()["enp0s3"][1][1]
+        except:
+            return net_if_addrs()["wlan0"][1][1]
+    
 
 output = ""
 
