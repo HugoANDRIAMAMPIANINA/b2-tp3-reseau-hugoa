@@ -28,9 +28,9 @@ def ip():
     elif platform.system() == "Linux":
         wifi_network_adapter = ""
         try:
-            return net_if_addrs()["enp0s3"]
+            return net_if_addrs()["enp0s3"][0][1]
         except:
-            return net_if_addrs()["wlan0"][1][1]
+            return net_if_addrs()["wlan0"][0][1]
     
 
 output = ""
