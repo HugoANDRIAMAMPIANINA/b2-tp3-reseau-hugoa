@@ -4,10 +4,10 @@ from os import system
 from psutil import net_if_addrs
 import platform
 
-def lookup(domain_name):
+def lookup(domain_name: str) -> str:
     return gethostbyname(domain_name)
 
-def ping(ipaddr):
+def ping(ipaddr: str) -> str:
     command = ""
 
     if platform.system() == "Windows":
@@ -22,15 +22,13 @@ def ping(ipaddr):
     
     return "DOWN !"
 
-def ip():
+def ip() -> str:
     if platform.system() == "Windows":
         return net_if_addrs()["Wi-Fi"][1][1]
     elif platform.system() == "Linux":
         wifi_network_adapter = ""
-        try:
-            wifi_network_adapter = net_if_addrs()["enp0s3"][0][1]
-        except:
-            wifi_network_adapter = net_if_addrs()["wlan0"][0][1]
+        for key, value in net_if_addrs():
+            print(key)
         return wifi_network_adapter
     
 
