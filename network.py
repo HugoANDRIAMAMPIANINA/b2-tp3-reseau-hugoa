@@ -36,7 +36,10 @@ def ip():
 output = ""
 
 if len(argv) > 2:
-    output = globals()[argv[1]](argv[2])
+    try:
+        output = globals()[argv[1]](argv[2])
+    except:
+        output = f"'{argv[1]}' is not an available command. Déso."
 else:
     try:
         output = globals()[argv[1]]()
