@@ -13,7 +13,7 @@ def ping(ipaddr):
     if platform.system() == "Windows":
         command = f"ping -n 1 -w 3 {ipaddr} > NUL"
     elif platform.system() == "Linux":
-        command = f"ping -c 1 -w 3 -q {ipaddr}"
+        command = f"ping -c 1 -w 3 -q {ipaddr} > /dev/null"
         
     res = system(command)
 
