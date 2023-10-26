@@ -27,7 +27,7 @@ def ip() -> str:
         return net_if_addrs()["Wi-Fi"][1][1]
     elif platform.system() == "Linux":
         wifi_network_adapter = ""
-        for key, value in net_if_addrs():
+        for key, value in net_if_addrs().items():
             print(key)
         return wifi_network_adapter
     
