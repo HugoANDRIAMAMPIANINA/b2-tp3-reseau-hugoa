@@ -33,7 +33,7 @@ def ip() -> str:
         i = 0
         for key, value in net_if_addrs().items():
             if i == 1:
-                for sniaddr in net_if_addrs()[key]:
+                for sniaddr in value:
                     ipaddr = re.search(r"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$",sniaddr[1])
                     if ipaddr != None:
                         return sniaddr[1]
