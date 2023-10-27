@@ -47,9 +47,9 @@ if len(argv) > 2:
     except:
         output = f"'{argv[1]}' is not an available command. Déso."
 else:
-    # try:
+    try:
         output = globals()[argv[1]]()
-    # except:
-    #     output = f"'{argv[1]}' is not an available command. Déso."
+    except:
+        output = f"'{argv[1]}' is not an available command. Déso."
     
 print(output)
