@@ -6,7 +6,10 @@ import platform
 import re
 
 def lookup(domain_name: str) -> str:
-    return gethostbyname(domain_name)
+    try:
+        return gethostbyname(domain_name)
+    except:
+        return f"{domain_name} isn't a valid domain name"
 
 def ping(ipaddr: str) -> str:
     command = ""
