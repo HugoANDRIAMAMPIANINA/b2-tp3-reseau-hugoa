@@ -3,6 +3,7 @@ from sys import argv
 from os import system
 from psutil import net_if_addrs
 import platform
+import re
 
 def lookup(domain_name: str) -> str:
     return gethostbyname(domain_name)
@@ -24,12 +25,18 @@ def ping(ipaddr: str) -> str:
 
 def ip() -> str:
     if platform.system() == "Windows":
-        return net_if_addrs()["Wi-Fi"][1][1]
+        for sniaddr in net_if_addrs()["Wi-Fi"]:
+            ipaddr = re.search(r"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$",sniaddr[1])
+            if ipaddr != None:
+                return sniaddr[1]
     elif platform.system() == "Linux":
         i = 0
         for key, value in net_if_addrs().items():
             if i == 1:
-                return net_if_addrs()[key][0][1]
+                for sniaddr in net_if_addrs()[key]:
+                    ipaddr = re.search(r"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$",sniaddr[1])
+                    if ipaddr != None:
+                        return sniaddr[1]
             i+=1
 
 output = ""
@@ -40,9 +47,9 @@ if len(argv) > 2:
     except:
         output = f"'{argv[1]}' is not an available command. Déso."
 else:
-    try:
+    # try:
         output = globals()[argv[1]]()
-    except:
-        output = f"'{argv[1]}' is not an available command. Déso."
+    # except:
+    #     output = f"'{argv[1]}' is not an available command. Déso."
     
 print(output)
